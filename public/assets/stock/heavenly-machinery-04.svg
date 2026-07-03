@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500">
+  <defs><linearGradient id="bg" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#0c0d12"/><stop offset=".45" stop-color="#2b0713"/><stop offset="1" stop-color="#030405"/></linearGradient><filter id="grain"><feTurbulence baseFrequency=".95" numOctaves="3"/><feComponentTransfer><feFuncA type="table" tableValues="0 .14"/></feComponentTransfer></filter></defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <g fill="none" transform="translate(600 690)">
+    <g stroke="#f6eee8" stroke-opacity=".4"><path d="M0-520c230 120 360 280 390 520-35 220-165 390-390 520-225-130-355-300-390-520 30-240 160-400 390-520Z"/><path d="M0-360c160 90 250 200 275 360-25 158-115 280-275 360-160-80-250-202-275-360 25-160 115-270 275-360Z"/><path d="M-480 0H480M0-610V610" stroke-opacity=".18"/></g>
+    <g stroke="#c64266" stroke-width="3" stroke-opacity=".55"><path d="M-300 470h600M-220 550h440M-140 630h280"/><path d="M-260-40h520M-190 40h380M-120 120h240"/></g>
+    <g fill="#f4e6dc" fill-opacity=".78"><circle r="34"/><rect x="-320" y="452" width="40" height="40" rx="5"/><rect x="280" y="452" width="40" height="40" rx="5"/><rect x="-20" y="610" width="40" height="40" rx="5"/></g>
+  </g>
+  <g stroke="#fff" stroke-opacity=".08"><path d="M100 0v1500M260 0v1500M420 0v1500M580 0v1500M740 0v1500M900 0v1500M1060 0v1500"/></g>
+  <rect width="1200" height="1500" filter="url(#grain)"/>
+</svg>

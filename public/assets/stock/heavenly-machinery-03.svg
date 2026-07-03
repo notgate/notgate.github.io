@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500">
+  <defs><radialGradient id="halo" cx="52%" cy="46%" r="55%"><stop stop-color="#fff1e7" stop-opacity=".28"/><stop offset=".45" stop-color="#a6224a" stop-opacity=".22"/><stop offset="1" stop-color="#040506"/></radialGradient><filter id="grain"><feTurbulence baseFrequency="1.1" numOctaves="2"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .12"/></feComponentTransfer></filter></defs>
+  <rect width="1200" height="1500" fill="#050607"/><rect width="1200" height="1500" fill="url(#halo)"/>
+  <g transform="translate(600 620)" fill="none" stroke-linecap="square">
+    <g stroke="#f5edf0" stroke-opacity=".44"><circle r="380" stroke-width="1.5"/><circle r="308" stroke-width="1"/><circle r="236" stroke-width="1"/><circle r="164" stroke-width="1"/><path d="M-500 0H500M0-500V500" stroke-opacity=".18"/></g>
+    <g stroke="#c84a6b" stroke-opacity=".5" stroke-width="3"><path d="M-260-260h520v520h-520z"/><path d="M-180-180h360v360h-360z"/><path d="M-420 420h840M-360 500h720"/></g>
+    <g fill="#efe3d8" fill-opacity=".78"><rect x="-42" y="-42" width="84" height="84" rx="10"/><rect x="-280" y="400" width="42" height="42" rx="4"/><rect x="238" y="400" width="42" height="42" rx="4"/><rect x="-21" y="500" width="42" height="42" rx="4"/></g>
+  </g>
+  <g stroke="#fff" stroke-opacity=".09"><path d="M0 75h1200M0 225h1200M0 375h1200M0 525h1200M0 675h1200M0 825h1200M0 975h1200M0 1125h1200M0 1275h1200M0 1425h1200"/></g>
+  <rect width="1200" height="1500" filter="url(#grain)"/>
+</svg>
