@@ -102,6 +102,9 @@ html {scroll-behavior:smooth;}
 #frontphoto.header-band {height:150px; width:100%;}
 .header-band strong {font-size:1.65em; letter-spacing:0.01em; margin-bottom:8px;}
 .header-band span {font-size:1em;}
+.education-entry {align-items:center; display:flex; gap:16px; margin:0 0 4px;}
+.education-entry p {margin:0;}
+.education-mark {display:block; flex:0 0 auto; height:auto; width:86px;}
 .project-grid {display:grid; gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); margin:0 0 24px;}
 .project-preview {min-width:0; text-align:center;}
 .project-preview a {display:block;}
@@ -146,6 +149,8 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
   #leftside ul.avmenu li.subitem a {font-size:0.9em; margin-left:0; padding-left:14px;}
   #frontphoto.header-band {height:auto; width:100%;}
   #contentwide {border-left:0; box-sizing:border-box; margin:0; padding:0 8px; width:auto;}
+  .education-entry {align-items:flex-start; gap:12px;}
+  .education-mark {width:68px;}
   .project-grid,.image-pair {grid-template-columns:1fr;}
   .project-preview .project-image {height:auto; max-height:260px;}
   .image-pair img {height:auto; max-height:430px;}

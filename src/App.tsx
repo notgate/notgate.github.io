@@ -87,11 +87,20 @@ export function App() {
         <hr />
         <section aria-labelledby="education">
           <h3 id="education">Education</h3>
-          <p>
-            <b>New York Institute of Technology (NYIT)</b><br />
-            Bachelor of Engineering in Electrical and Computer Engineering<br />
-            2023–2027 · Current GPA: 3.1 · Dean&apos;s List
-          </p>
+          <div className="education-entry">
+            <img
+              className="education-mark"
+              src="/assets/nyit-bears.svg"
+              alt="NYIT Bears logo"
+              width="250"
+              height="239"
+            />
+            <p>
+              <b>New York Institute of Technology (NYIT)</b><br />
+              Bachelor of Engineering in Electrical and Computer Engineering<br />
+              2023–2027 · Current GPA: 3.1 · Dean&apos;s List
+            </p>
+          </div>
         </section>
 
         <hr />
