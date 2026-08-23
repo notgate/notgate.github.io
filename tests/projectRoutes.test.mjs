@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 import { PROJECT_ROUTES, getPageKey } from '../src/projectRoutes.ts'
@@ -33,4 +34,11 @@ test('every homepage project entry has one concise summary and a preview image',
     assert.match(project.image, /^\/projects\//)
     assert.ok(project.alt.length > 20)
   }
+})
+
+test('the VHDL case study does not claim unsupported tools or FPGA hardware', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+  assert.doesNotMatch(source, /Vivado|Basys 3/)
+  assert.match(source, /Academic team project with Richard Gill · VHDL · ModelSim · December 2024/)
+  assert.match(source, /The original report states that the team worked with no board or output display/)
 })

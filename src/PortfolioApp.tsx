@@ -299,7 +299,7 @@ function VhdlPage() {
     >
       <article className="project-detail" aria-labelledby="pokemon-vhdl">
         <h2 id="pokemon-vhdl">Game Boy–Inspired VHDL Architecture Study</h2>
-        <p className="project-meta">Academic team project with Richard Gill · VHDL · Vivado · ModelSim · Digilent Basys 3 · December 2024</p>
+        <p className="project-meta">Academic team project with Richard Gill · VHDL · ModelSim · December 2024</p>
         <hr />
 
         <h3>Description</h3>
@@ -312,7 +312,7 @@ function VhdlPage() {
 
         <h3>What worked</h3>
         <p>
-          My strongest part of the project was the display-controller work: horizontal and vertical counters, active-video gating, HSYNC/VSYNC timing, pixel coordinates, and RGB selection between map and sprite inputs. I inspected the signal behavior in ModelSim even though the project did not reach a demonstrated playable video output on hardware.
+          My strongest part of the project was the display-controller work: horizontal and vertical counters, active-video gating, HSYNC/VSYNC timing, pixel coordinates, and RGB selection between map and sprite inputs. I inspected the signal behavior in ModelSim. The original report states that the team worked with no board or output display, so the surviving evidence is VHDL source and simulation rather than FPGA deployment.
         </p>
         <div className="image-pair">
           <ProjectFigure
