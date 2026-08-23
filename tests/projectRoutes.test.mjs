@@ -36,15 +36,35 @@ test('every homepage project entry has one concise summary and a preview image',
   }
 })
 
-test('the VHDL case study does not claim unsupported tools or FPGA hardware', async () => {
+test('the VHDL case study stays grounded while presenting the project positively', async () => {
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
   assert.doesNotMatch(source, /Vivado|Basys 3/)
   assert.match(source, /Academic team project with Richard Gill · VHDL · ModelSim · December 2024/)
-  assert.match(source, /The original report states that the team worked with no board or output display/)
+  assert.match(source, /Analogue Pocket/)
+  assert.match(source, /architecture-diagram\.jpg/)
 })
 
 test('active navigation exposes the current page semantically', async () => {
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
   assert.match(source, /aria-current=\{current === 'home' \? 'page' : undefined\}/)
   assert.match(source, /aria-current=\{current === project\.key \? 'page' : undefined\}/)
+})
+
+test('project copy leads with achievements instead of audit disclaimers', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+  const publicCopy = `${source}\n${JSON.stringify(PROJECT_ROUTES)}`
+
+  assert.doesNotMatch(publicCopy, /do not independently demonstrate|without claiming a verified final|Scope an FPGA project|no board or output display|not the final boot state|not successfully validated|available functional evidence|candid boundaries|what remains unfinished|validation boundaries/)
+  assert.match(publicCopy, /successfully reached Hekate/)
+  assert.match(publicCopy, /FPGA-based handheld/)
+})
+
+test('speech and Switch pages present the tutorials used as references', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+
+  assert.match(source, /youtube-nocookie\.com\/embed\/aIadwRaK6F0/)
+  assert.match(source, /youtube\.com\/watch\?v=P4ZWLazR6xQ&t=928s/)
+  assert.match(source, /switch-install-guide-preview\.jpg/)
+  assert.match(source, /Speech-To-Text on the Edge/)
+  assert.match(source, /Nintendo Switch OLED PicoFly Modchip Install Guide/)
 })

@@ -125,8 +125,18 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
 .hero-figure img {max-height:470px; object-fit:contain;}
 .wide-figure img {max-height:520px; object-fit:contain;}
 .portrait-figure img {max-height:570px; object-fit:contain;}
+.reference-figure {max-width:470px;}
 .document-figure {max-width:470px;}
 .document-figure img {max-height:540px; object-fit:contain;}
+.video-reference {margin:12px auto 24px; max-width:640px;}
+.video-frame {aspect-ratio:16 / 9; background:#111; border:1px solid #d4d4d4; box-sizing:border-box; padding:4px; width:100%;}
+.video-frame iframe {border:0; display:block; height:100%; width:100%;}
+.video-reference figcaption {max-width:100%;}
+.video-credit,.video-context {display:block;}
+.video-context {margin-top:5px;}
+.video-link-preview {display:block; position:relative;}
+.video-link-preview img {border:1px solid #d4d4d4; box-sizing:border-box; display:block; height:auto; padding:4px; width:100%;}
+.video-play {background:rgba(40,110,160,0.94); border-radius:50%; color:#fff; font-size:2.2em; left:50%; line-height:1; padding:14px 15px 14px 18px; position:absolute; top:50%; transform:translate(-50%,-50%);}
 .image-pair {display:grid; gap:12px; grid-template-columns:repeat(2,minmax(0,1fr)); margin:8px 0 20px;}
 .image-pair figure {margin:0; min-width:0;}
 .image-pair img {height:285px; object-fit:contain; width:100%;}
@@ -135,9 +145,10 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
 .evidence-table {border-collapse:collapse; font-size:0.84em; min-width:590px; width:100%;}
 .evidence-table th,.evidence-table td {border:1px solid #ccc; padding:7px; text-align:left; vertical-align:top;}
 .evidence-table th {background:#e9f1f6; color:#364752;}
-.project-links,.boundary-note {background:#f4f4f4; border-left:4px solid #286ea0; padding:9px 11px;}
+.project-links,.outcome-callout {background:#f4f4f4; border-left:4px solid #286ea0; padding:9px 11px;}
 .project-links a {display:inline-block;}
-.boundary-note {font-size:0.9em;}
+.outcome-callout {color:#364752; font-size:1em; margin:14px 0 18px;}
+.boot-result-figure img {background:#252525; width:100%;}
 .back-to-projects {border-top:1px solid #ddd; margin:28px 0 6px; padding-top:10px;}
 #contentwide hr {border:0; border-top:1px solid #ddd; margin:24px 0;}
 

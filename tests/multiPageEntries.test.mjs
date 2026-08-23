@@ -30,3 +30,14 @@ test('every page declares the shared favicon', async () => {
     assert.match(html, /<link rel="icon" type="image\/svg\+xml" href="\/assets\/favicon\.svg" \/>/)
   }
 })
+
+test('the supplied project reference images are published as local assets', async () => {
+  for (const file of [
+    '../public/projects/pokemon-vhdl/analogue-pocket-reference.png',
+    '../public/projects/switch-modchip/hekate-success.png',
+    '../public/projects/switch-modchip/switch-install-guide-preview.jpg',
+  ]) {
+    const image = await readFile(new URL(file, import.meta.url))
+    assert.ok(image.byteLength > 1000)
+  }
+})
