@@ -9,10 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@paper-design/shaders-react": "^0.0.76",
     "@vitejs/plugin-react": "latest",
-    "framer-motion": "latest",
-    "lenis": "^1.3.25",
     "react": "latest",
     "react-dom": "latest",
     "typescript": "latest",
