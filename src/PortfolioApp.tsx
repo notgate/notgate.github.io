@@ -54,12 +54,12 @@ function SiteNavigation({ current }: { current: PageKey }) {
     <nav id="leftside" aria-label="Portfolio sections">
       <h2 className="hide">Menu</h2>
       <ul className="avmenu">
-        <li><a className={current === 'home' ? 'current' : undefined} href="/">Overview</a></li>
+        <li><a className={current === 'home' ? 'current' : undefined} aria-current={current === 'home' ? 'page' : undefined} href="/">Overview</a></li>
         <li><a href="/#education">Education</a></li>
         <li><a href="/#selected-projects">Projects</a></li>
         {PROJECT_ROUTES.map((project) => (
           <li className="subitem" key={project.key}>
-            <a className={current === project.key ? 'current' : undefined} href={project.href}>{project.navLabel}</a>
+            <a className={current === project.key ? 'current' : undefined} aria-current={current === project.key ? 'page' : undefined} href={project.href}>{project.navLabel}</a>
           </li>
         ))}
       </ul>

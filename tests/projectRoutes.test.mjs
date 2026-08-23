@@ -42,3 +42,9 @@ test('the VHDL case study does not claim unsupported tools or FPGA hardware', as
   assert.match(source, /Academic team project with Richard Gill · VHDL · ModelSim · December 2024/)
   assert.match(source, /The original report states that the team worked with no board or output display/)
 })
+
+test('active navigation exposes the current page semantically', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+  assert.match(source, /aria-current=\{current === 'home' \? 'page' : undefined\}/)
+  assert.match(source, /aria-current=\{current === project\.key \? 'page' : undefined\}/)
+})
