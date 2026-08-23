@@ -110,6 +110,10 @@ html {scroll-behavior:smooth;}
 .project-preview a {display:block;}
 .project-preview .project-image {background:#f4f4f4; border:1px solid #d4d4d4; box-sizing:border-box; display:block; height:190px; object-fit:contain; padding:5px; width:100%;}
 .project-preview p {line-height:1.4em; margin:7px 0 0;}
+.project-preview .project-preview-heading {min-height:3.3em;}
+.project-preview .project-preview-summary {min-height:5.6em; text-align:left;}
+.project-preview .case-study-link {border-top:1px solid #e0e0e0; margin-top:10px; padding-top:7px; text-align:left;}
+.project-preview .case-study-link a {display:inline;}
 .project-detail {padding-top:2px;}
 .project-meta {color:#686868; font-size:0.9em; margin-top:-5px;}
 .project-detail h3 {margin-top:20px;}
@@ -134,7 +138,8 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
 .project-links,.boundary-note {background:#f4f4f4; border-left:4px solid #286ea0; padding:9px 11px;}
 .project-links a {display:inline-block;}
 .boundary-note {font-size:0.9em;}
-#contentwide hr {border:0; border-top:1px solid #ddd; clear:both; margin:24px 0;}
+.back-to-projects {border-top:1px solid #ddd; margin:28px 0 6px; padding-top:10px;}
+#contentwide hr {border:0; border-top:1px solid #ddd; margin:24px 0;}
 
 @media (max-width:680px) {
   #wrap {width:calc(100% - 18px);}
@@ -153,6 +158,7 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
   .education-mark {width:68px;}
   .project-grid,.image-pair {grid-template-columns:1fr;}
   .project-preview .project-image {height:auto; max-height:260px;}
+  .project-preview .project-preview-heading,.project-preview .project-preview-summary {min-height:0;}
   .image-pair img {height:auto; max-height:430px;}
   .document-figure {max-width:100%;}
   #footer {box-sizing:border-box; padding-left:10px; padding-right:10px; width:calc(100% - 20px);}
