@@ -131,15 +131,17 @@ function SiteNavigation({ current }: { current: PageKey }) {
 function SiteLayout({ current, children }: SiteLayoutProps) {
   return (
     <div id="wrap">
-      <h1 className="visually-hidden">Uthso Paul — Engineering Portfolio</h1>
+      <header id="header">
+        <h1><a href="/">Uthso Paul, B.E. - Engineering Portfolio</a></h1>
+      </header>
 
       <img
         id="frontphoto"
         className="site-banner"
-        src="/assets/banner-dcf21bf6.png"
+        src="/assets/banner-d9897f4c.jpg"
         alt=""
-        width="2172"
-        height="370"
+        width="800"
+        height="190"
       />
 
       <SiteNavigation current={current} />
@@ -163,6 +165,13 @@ function HomePage() {
         <p>
           My name is Uthso Paul. I am an electrical and computer engineering student at New York Institute of Technology who builds embedded-audio, digital-hardware, sensing, and hardware/software integration projects. This portfolio shows how I turn technical ideas into working prototypes, documented architectures, and measurable engineering progress.
         </p>
+        <img
+          className="profile-photo"
+          src="/assets/profile-0e8db13a.jpg"
+          alt="Portrait of Uthso Paul"
+          width="600"
+          height="600"
+        />
         <p>
           Projects are organized as professional, academic, and personal work. Select one for its design story, implementation details, images, lessons learned, references, and available source material.
         </p>

@@ -82,7 +82,6 @@ The live browser CSSOM reduces that source to the empty rule below.
 .postinfo {background-color:#f4f4f4; border-left:4px solid #ccc; color:#606060; font-size:0.9em; line-height:1.4em; margin:1px 0 20px; padding:8px 5px 8px 8px;}
 .clearing {clear:left; margin:0; padding:0; visibility:hidden;}
 .hide {display:none;}
-.visually-hidden {border:0; clip-path:inset(50%); height:1px; margin:-1px; overflow:hidden; padding:0; position:absolute; white-space:nowrap; width:1px;}
 
 /* Uthso Paul placeholder adaptations. These do not replace source layout rules. */
 #leftside ul.avmenu::after {clear:both; content:''; display:block;}
@@ -94,6 +93,7 @@ The live browser CSSOM reduces that source to the empty rule below.
 .profile-placeholder {border:3px groove gainsboro; display:block; float:right; margin:0 10px;}
 #profile-links a {align-items:center; display:inline-flex; gap:6px;}
 .profile-link-icon {fill:currentColor; flex:0 0 auto; height:16px; width:16px;}
+.profile-photo {border:1px solid #aaa; display:block; float:right; height:auto; margin:0 0 10px 15px; width:181px;}
 .project-preview {text-align:center;}
 .project-preview p {margin:0 0 1.4em;}
 .feedback-note {font-size:0.9em; font-style:italic;}
@@ -178,6 +178,7 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
   #contentwide {border-left:0; box-sizing:border-box; margin:0; padding:0 8px; width:auto;}
   .education-entry {align-items:flex-start; gap:12px;}
   .education-mark {width:56px;}
+  .profile-photo {float:none; margin:0 auto 18px; width:160px;}
   .project-grid,.image-pair {grid-template-columns:1fr;}
   .project-preview .project-image {height:auto; max-height:260px;}
   .project-preview .project-preview-heading,.project-preview .project-preview-summary {min-height:0;}

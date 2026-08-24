@@ -12,8 +12,8 @@ test('the shared shell uses the supplied image banner and simplified footer cred
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
   const css = await readFile(new URL('../src/styles/site.css', import.meta.url), 'utf8')
 
-  assert.match(source, /src="\/assets\/banner-dcf21bf6\.png"/)
-  assert.doesNotMatch(source, /src="\/assets\/banner\.png"/)
+  assert.match(source, /src="\/assets\/banner-d9897f4c\.jpg"/)
+  assert.doesNotMatch(source, /src="\/assets\/banner-dcf21bf6\.png"/)
   assert.match(source, /Template design by/)
   assert.doesNotMatch(source, /Project hierarchy informed by/)
   assert.doesNotMatch(source, /Embedded systems · signal processing · hardware design/)
@@ -37,11 +37,19 @@ test('the NYIT mark stays secondary to the education text', async () => {
   assert.match(css, /@media \(max-width:680px\)[\s\S]*\.education-mark\s*\{width:56px;\}/)
 })
 
-test('the banner replaces the visible portfolio headline without losing an accessible title', async () => {
+test('the requested portfolio heading appears above the banner', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+
+  assert.match(source, /<header id="header">[\s\S]*Uthso Paul, B\.E\. - Engineering Portfolio[\s\S]*<\/header>/)
+  assert.doesNotMatch(source, /className="visually-hidden"/)
+})
+
+test('the supplied profile photo floats into the Overview like the reference layout', async () => {
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
   const css = await readFile(new URL('../src/styles/site.css', import.meta.url), 'utf8')
 
-  assert.doesNotMatch(source, /<header id="header">/)
-  assert.match(source, /<h1 className="visually-hidden">Uthso Paul — Engineering Portfolio<\/h1>/)
-  assert.match(css, /\.visually-hidden\s*\{[^}]*clip-path\s*:\s*inset\(50%\)/s)
+  assert.match(source, /src="\/assets\/profile-0e8db13a\.jpg"/)
+  assert.match(source, /alt="Portrait of Uthso Paul"/)
+  assert.match(css, /\.profile-photo\s*\{[^}]*float\s*:\s*right[^}]*width\s*:\s*181px/s)
+  assert.match(css, /@media \(max-width:680px\)[\s\S]*\.profile-photo\s*\{[^}]*float\s*:\s*none/s)
 })
