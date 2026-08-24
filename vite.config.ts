@@ -11,6 +11,7 @@ export default defineConfig({
         speech: resolve(__dirname, 'speech-to-text.html'),
         vibroacoustic: resolve(__dirname, 'vibroacoustic-monitoring.html'),
         vhdl: resolve(__dirname, 'pokemon-vhdl.html'),
+        search: resolve(__dirname, 'search-engine.html'),
         switch: resolve(__dirname, 'switch-modchip.html'),
       },
     },

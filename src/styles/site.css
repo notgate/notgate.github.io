@@ -85,8 +85,14 @@ The live browser CSSOM reduces that source to the empty rule below.
 
 /* Uthso Paul placeholder adaptations. These do not replace source layout rules. */
 #leftside ul.avmenu::after {clear:both; content:''; display:block;}
-#leftside ul.avmenu li.subitem a {font-size:0.9em; font-weight:400; margin-left:15px; padding:3px 1px 3px 5px; width:115px;}
+#leftside ul.avmenu li.nav-group {display:block; float:left; margin:0 0 7px; width:160px;}
+#leftside ul.avmenu li.nav-group .nav-group-label {background:#f4f4f4; border-left:4px solid #ccc; box-sizing:border-box; color:#505050; display:block; font-weight:700; padding:5px 6px; width:140px;}
+#leftside ul.avmenu li.nav-group ul {clear:both; margin:4px 0 0 15px; padding:0; width:125px;}
+#leftside ul.avmenu li.nav-group ul li {display:block; margin:0 0 4px; width:125px;}
+#leftside ul.avmenu li.nav-group ul li a {box-sizing:border-box; float:none; font-size:0.9em; font-weight:400; margin:0; padding:3px 1px 3px 5px; width:115px;}
 .profile-placeholder {border:3px groove gainsboro; display:block; float:right; margin:0 10px;}
+#profile-links a {align-items:center; display:inline-flex; gap:6px;}
+.profile-link-icon {fill:currentColor; flex:0 0 auto; height:16px; width:16px;}
 .project-preview {text-align:center;}
 .project-preview p {margin:0 0 1.4em;}
 .feedback-note {font-size:0.9em; font-style:italic;}
@@ -97,15 +103,14 @@ The live browser CSSOM reduces that source to the empty rule below.
 html {scroll-behavior:smooth;}
 #wrap {max-width:800px; width:calc(100% - 24px);}
 #contentwide {padding-right:10px;}
-#overview,#education,#selected-projects,#speech-to-text-audio,#vibroacoustic-monitoring,#pokemon-vhdl,#switch-modchip {scroll-margin-top:12px;}
-.header-band {background:#e9f1f6; border-bottom:4px solid #286ea0; box-sizing:border-box; color:#364752; display:flex; flex-direction:column; height:150px; justify-content:center; margin:0 0 10px; padding:28px 34px; width:100%;}
-#frontphoto.header-band {height:150px; width:100%;}
-.header-band strong {font-size:1.65em; letter-spacing:0.01em; margin-bottom:8px;}
-.header-band span {font-size:1em;}
+#overview,#education,#selected-projects,#speech-to-text-audio,#vibroacoustic-monitoring,#pokemon-vhdl,#search-engine,#switch-modchip {scroll-margin-top:12px;}
+.site-banner {display:block; height:auto; width:100%;}
 .education-entry {align-items:center; display:flex; gap:16px; margin:0 0 4px;}
 .education-entry p {margin:0;}
-.education-mark {display:block; flex:0 0 auto; height:auto; width:86px;}
+.education-mark {display:block; flex:0 0 auto; height:auto; width:68px;}
 .project-grid {display:grid; gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); margin:0 0 24px;}
+.project-category + .project-category {border-top:1px solid #ddd; padding-top:10px;}
+.category-summary {color:#666; margin-bottom:12px;}
 .project-preview {min-width:0; text-align:center;}
 .project-preview a {display:block;}
 .project-preview .project-image {background:#f4f4f4; border:1px solid #d4d4d4; box-sizing:border-box; display:block; height:190px; object-fit:contain; padding:5px; width:100%;}
@@ -124,6 +129,7 @@ figure img {border:1px solid #d4d4d4; box-sizing:border-box; display:block; heig
 figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; max-width:92%;}
 .hero-figure img {max-height:470px; object-fit:contain;}
 .wide-figure img {max-height:520px; object-fit:contain;}
+
 .portrait-figure img {max-height:570px; object-fit:contain;}
 .reference-figure {max-width:470px;}
 .document-figure {max-width:470px;}
@@ -143,6 +149,7 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
 .table-scroll {margin:10px 0 20px; overflow-x:auto;}
 .table-scroll:focus {outline:2px solid #286ea0; outline-offset:2px;}
 .evidence-table {border-collapse:collapse; font-size:0.84em; min-width:590px; width:100%;}
+
 .evidence-table th,.evidence-table td {border:1px solid #ccc; padding:7px; text-align:left; vertical-align:top;}
 .evidence-table th {background:#e9f1f6; color:#364752;}
 .project-links,.outcome-callout {background:#f4f4f4; border-left:4px solid #286ea0; padding:9px 11px;}
@@ -156,17 +163,20 @@ figcaption {color:#666; font-size:0.82em; line-height:1.4em; margin:6px auto 0; 
   #wrap {width:calc(100% - 18px);}
   #header {height:auto; margin:8px 0;}
   #header h1 {float:none; font-size:1.75em; margin:0; width:auto;}
-  .header-band {height:auto; min-height:120px; padding:24px 20px;}
-  .header-band strong {font-size:1.35em;}
+
   #leftside {float:none; margin:0 0 14px; width:auto;}
   #leftside ul.avmenu {display:grid; gap:4px; grid-template-columns:repeat(2,minmax(0,1fr)); margin:0; width:auto;}
   #leftside ul.avmenu li {display:block; width:auto;}
-  #leftside ul.avmenu li a,#leftside ul.avmenu li.subitem a {box-sizing:border-box; display:block; float:none; margin:0; padding:6px; width:auto;}
-  #leftside ul.avmenu li.subitem a {font-size:0.9em; margin-left:0; padding-left:14px;}
-  #frontphoto.header-band {height:auto; width:100%;}
+  #leftside ul.avmenu li a {box-sizing:border-box; display:block; float:none; margin:0; padding:6px; width:auto;}
+  #leftside ul.avmenu li.nav-group {float:none; margin:0; width:auto;}
+  #leftside ul.avmenu li.nav-group .nav-group-label {padding:6px; width:100%;}
+  #leftside ul.avmenu li.nav-group ul {margin:4px 0 0; width:auto;}
+  #leftside ul.avmenu li.nav-group ul li {width:auto;}
+  #leftside ul.avmenu li.nav-group ul li a {font-size:0.9em; padding:5px 6px 5px 14px; width:auto;}
+
   #contentwide {border-left:0; box-sizing:border-box; margin:0; padding:0 8px; width:auto;}
   .education-entry {align-items:flex-start; gap:12px;}
-  .education-mark {width:68px;}
+  .education-mark {width:56px;}
   .project-grid,.image-pair {grid-template-columns:1fr;}
   .project-preview .project-image {height:auto; max-height:260px;}
   .project-preview .project-preview-heading,.project-preview .project-preview-summary {min-height:0;}

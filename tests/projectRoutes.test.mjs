@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
-import { PROJECT_ROUTES, getPageKey } from '../src/projectRoutes.ts'
+import { PROJECT_CATEGORIES, PROJECT_ROUTES, getPageKey } from '../src/projectRoutes.ts'
 
 test('project routes use dedicated HTML pages', () => {
   assert.deepEqual(
@@ -11,6 +11,7 @@ test('project routes use dedicated HTML pages', () => {
       ['speech', '/speech-to-text.html'],
       ['vibroacoustic', '/vibroacoustic-monitoring.html'],
       ['vhdl', '/pokemon-vhdl.html'],
+      ['search', '/search-engine.html'],
       ['switch', '/switch-modchip.html'],
     ],
   )
@@ -22,8 +23,31 @@ test('page routing resolves the home page and every project page', () => {
   assert.equal(getPageKey('/speech-to-text.html'), 'speech')
   assert.equal(getPageKey('/vibroacoustic-monitoring.html'), 'vibroacoustic')
   assert.equal(getPageKey('/pokemon-vhdl.html'), 'vhdl')
+  assert.equal(getPageKey('/search-engine.html'), 'search')
   assert.equal(getPageKey('/switch-modchip.html'), 'switch')
   assert.equal(getPageKey('/missing.html'), 'home')
+})
+
+test('projects are organized into the requested professional, academic, and personal groups', () => {
+  assert.deepEqual(
+    PROJECT_CATEGORIES.map(({ key, label }) => [key, label]),
+    [
+      ['professional', 'Professional Projects'],
+      ['academic', 'Academic Projects'],
+      ['personal', 'Personal Projects'],
+    ],
+  )
+
+  assert.deepEqual(
+    PROJECT_ROUTES.map(({ key, category }) => [key, category]),
+    [
+      ['speech', 'professional'],
+      ['vibroacoustic', 'professional'],
+      ['vhdl', 'academic'],
+      ['search', 'personal'],
+      ['switch', 'personal'],
+    ],
+  )
 })
 
 test('every homepage project entry has one concise summary and a preview image', () => {
@@ -67,4 +91,18 @@ test('speech and Switch pages present the tutorials used as references', async (
   assert.match(source, /switch-install-guide-preview\.jpg/)
   assert.match(source, /Speech-To-Text on the Edge/)
   assert.match(source, /Nintendo Switch OLED PicoFly Modchip Install Guide/)
+})
+
+test('the personal search-engine case study stays concise and product-agnostic', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+  const start = source.indexOf('function SearchEnginePage()')
+  const end = source.indexOf('function SwitchPage()')
+  const searchPage = source.slice(start, end)
+
+  assert.match(searchPage, /Scalable Search Engine/)
+  assert.match(searchPage, /key\/value pairs/i)
+  assert.match(searchPage, /binary search/i)
+  assert.match(searchPage, /memory mapping/i)
+  assert.match(searchPage, /search-engine-flow\.png/)
+  assert.doesNotMatch(searchPage, /href="https?:|commercial|production|customer|client|credential|threat|billion|\d{1,3}(,\d{3}){2,}/i)
 })

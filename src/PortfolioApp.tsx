@@ -1,11 +1,24 @@
 import type { ReactNode } from 'react'
 
-import { PROJECT_ROUTES, getPageKey, type PageKey, type ProjectPageKey } from './projectRoutes'
+import {
+  PROJECT_CATEGORIES,
+  PROJECT_ROUTES,
+  getPageKey,
+  type PageKey,
+  type ProjectCategoryKey,
+  type ProjectPageKey,
+} from './projectRoutes'
 
 type ProjectRoute = (typeof PROJECT_ROUTES)[number]
 
 type ProjectPreviewProps = {
   project: ProjectRoute
+}
+
+const CATEGORY_SUMMARIES: Record<ProjectCategoryKey, string> = {
+  professional: 'Independent systems developed to professional engineering standards, with complete technical documentation and product-oriented design decisions.',
+  academic: 'Coursework that applies computer architecture, digital logic, simulation, and collaborative engineering practice.',
+  personal: 'Self-directed builds spanning data structures, resource-efficient search, microsoldering, and platform integration.',
 }
 
 function ProjectPreview({ project }: ProjectPreviewProps) {
@@ -16,7 +29,7 @@ function ProjectPreview({ project }: ProjectPreviewProps) {
       </a>
       <p className="project-preview-heading">
         <b><a href={project.href}>{project.title}</a></b><br />
-        <span className="small">{project.category}</span>
+        <span className="small">{project.meta}</span>
       </p>
       <p className="project-preview-summary">{project.summary}</p>
       <p className="case-study-link"><a href={project.href}>Read the case study</a></p>
@@ -39,6 +52,18 @@ function ProjectFigure({ src, alt, caption, className = '' }: ProjectFigureProps
       </a>
       <figcaption>{caption}</figcaption>
     </figure>
+  )
+}
+
+function ProfileIcon({ kind }: { kind: 'github' | 'linkedin' }) {
+  const path = kind === 'github'
+    ? 'M12 .7a11.3 11.3 0 0 0-3.6 22c.6.1.8-.2.8-.5v-2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.4.9.1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.6 0-1.2.4-2.2 1.2-3-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.8 1.2a13 13 0 0 1 6.9 0C15.7 5 16.7 5 16.7 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3 0 4.3-2.7 5.3-5.3 5.6.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A11.3 11.3 0 0 0 12 .7Z'
+    : 'M4.7 3a2.1 2.1 0 1 1 0 4.2A2.1 2.1 0 0 1 4.7 3ZM2.9 8.8h3.6V21H2.9V8.8Zm5.8 0h3.4v1.7h.1c.5-.9 1.7-2.2 3.6-2.2 3.8 0 4.5 2.5 4.5 5.8V21h-3.6v-6.1c0-1.5 0-3.4-2-3.4-2.1 0-2.4 1.6-2.4 3.3V21H8.7V8.8Z'
+
+  return (
+    <svg className="profile-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d={path} />
+    </svg>
   )
 }
 
@@ -77,8 +102,6 @@ function VideoReference({ embedUrl, watchUrl, title, channel, channelUrl, childr
 
 type SiteLayoutProps = {
   current: PageKey
-  bannerTitle: string
-  bannerSummary: string
   children: ReactNode
 }
 
@@ -88,11 +111,16 @@ function SiteNavigation({ current }: { current: PageKey }) {
       <h2 className="hide">Menu</h2>
       <ul className="avmenu">
         <li><a className={current === 'home' ? 'current' : undefined} aria-current={current === 'home' ? 'page' : undefined} href="/">Overview</a></li>
-        <li><a href="/#education">Education</a></li>
-        <li><a href="/#selected-projects">Projects</a></li>
-        {PROJECT_ROUTES.map((project) => (
-          <li className="subitem" key={project.key}>
-            <a className={current === project.key ? 'current' : undefined} aria-current={current === project.key ? 'page' : undefined} href={project.href}>{project.navLabel}</a>
+        {PROJECT_CATEGORIES.map((category) => (
+          <li className="nav-group" key={category.key}>
+            <span className="nav-group-label">{category.label}</span>
+            <ul>
+              {PROJECT_ROUTES.filter((project) => project.category === category.key).map((project) => (
+                <li key={project.key}>
+                  <a className={current === project.key ? 'current' : undefined} aria-current={current === project.key ? 'page' : undefined} href={project.href}>{project.navLabel}</a>
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
@@ -100,17 +128,21 @@ function SiteNavigation({ current }: { current: PageKey }) {
   )
 }
 
-function SiteLayout({ current, bannerTitle, bannerSummary, children }: SiteLayoutProps) {
+function SiteLayout({ current, children }: SiteLayoutProps) {
   return (
     <div id="wrap">
       <header id="header">
         <h1><a href="/">Paul — Engineering Portfolio</a></h1>
       </header>
 
-      <div id="frontphoto" className="header-band" role="img" aria-label={`${bannerTitle}. ${bannerSummary}`}>
-        <strong>{bannerTitle}</strong>
-        <span>{bannerSummary}</span>
-      </div>
+      <img
+        id="frontphoto"
+        className="site-banner"
+        src="/assets/banner.png"
+        alt=""
+        width="2866"
+        height="548"
+      />
 
       <SiteNavigation current={current} />
       <main id="contentwide">{children}</main>
@@ -118,7 +150,7 @@ function SiteLayout({ current, bannerTitle, bannerSummary, children }: SiteLayou
       <footer id="footer">
         <p>
           <span>© Uthso Paul</span><br />
-          Project hierarchy informed by <a href="http://evanjuras.com/" target="_blank" rel="noreferrer">Evan Juras</a>; template design by <a href="https://andreasviklund.com/templates/" target="_blank" rel="noreferrer">Andreas Viklund</a>.
+          Template design by <a href="https://andreasviklund.com/templates/" target="_blank" rel="noreferrer">Andreas Viklund</a>.
         </p>
       </footer>
     </div>
@@ -127,28 +159,24 @@ function SiteLayout({ current, bannerTitle, bannerSummary, children }: SiteLayou
 
 function HomePage() {
   return (
-    <SiteLayout
-      current="home"
-      bannerTitle="Embedded systems · signal processing · hardware design"
-      bannerSummary="Short project summaries here; complete engineering evidence on each dedicated case-study page."
-    >
+    <SiteLayout current="home">
       <section aria-labelledby="overview">
         <h2 id="overview">Overview</h2>
         <p>
           My name is Uthso Paul. I am an electrical and computer engineering student at New York Institute of Technology who builds embedded-audio, digital-hardware, sensing, and hardware/software integration projects. This portfolio shows how I turn technical ideas into working prototypes, documented architectures, and measurable engineering progress.
         </p>
         <p>
-          Select a project below for its design story, implementation details, images, lessons learned, references, and source material.
+          Projects are organized as professional, academic, and personal work. Select one for its design story, implementation details, images, lessons learned, references, and available source material.
         </p>
         <ul id="profile-links">
-          <li><a href="https://github.com/notgate" target="_blank" rel="noreferrer">GitHub profile</a></li>
-          <li><a href="https://www.linkedin.com/in/uthsopaul/" target="_blank" rel="noreferrer">LinkedIn profile</a></li>
+          <li><a href="https://github.com/notgate" target="_blank" rel="noreferrer"><ProfileIcon kind="github" />GitHub profile</a></li>
+          <li><a href="https://www.linkedin.com/in/uthsopaul/" target="_blank" rel="noreferrer"><ProfileIcon kind="linkedin" />LinkedIn profile</a></li>
         </ul>
         <p>If you only have time to review three projects, start here:</p>
         <ol>
           <li><a href="/speech-to-text.html">Speech-to-Text Audio Communications</a></li>
+          <li><a href="/search-engine.html">Scalable Search Engine</a></li>
           <li><a href="/pokemon-vhdl.html">Game Boy–Inspired VHDL Architecture Study</a></li>
-          <li><a href="/switch-modchip.html">Nintendo Switch RP2040 Modchip Installation</a></li>
         </ol>
       </section>
 
@@ -176,15 +204,17 @@ function HomePage() {
         <h3 id="selected-projects">Selected Projects</h3>
         <p>Each entry is a short orientation. Open its dedicated page for the complete case study.</p>
 
-        <h4>Featured engineering work</h4>
-        <div className="project-grid">
-          {PROJECT_ROUTES.slice(0, 2).map((project) => <ProjectPreview key={project.key} project={project} />)}
-        </div>
-
-        <h4>Academic and early hardware work</h4>
-        <div className="project-grid">
-          {PROJECT_ROUTES.slice(2).map((project) => <ProjectPreview key={project.key} project={project} />)}
-        </div>
+        {PROJECT_CATEGORIES.map((category) => (
+          <section className="project-category" aria-labelledby={`${category.key}-projects`} key={category.key}>
+            <h4 id={`${category.key}-projects`}>{category.label}</h4>
+            <p className="category-summary">{CATEGORY_SUMMARIES[category.key]}</p>
+            <div className="project-grid">
+              {PROJECT_ROUTES.filter((project) => project.category === category.key).map((project) => (
+                <ProjectPreview key={project.key} project={project} />
+              ))}
+            </div>
+          </section>
+        ))}
       </section>
     </SiteLayout>
   )
@@ -192,17 +222,13 @@ function HomePage() {
 
 function ProjectLayout({
   current,
-  bannerTitle,
-  bannerSummary,
   children,
 }: {
   current: ProjectPageKey
-  bannerTitle: string
-  bannerSummary: string
   children: ReactNode
 }) {
   return (
-    <SiteLayout current={current} bannerTitle={bannerTitle} bannerSummary={bannerSummary}>
+    <SiteLayout current={current}>
       {children}
       <p className="back-to-projects"><a href="/#selected-projects">Return to all projects</a></p>
     </SiteLayout>
@@ -213,8 +239,6 @@ function SpeechPage() {
   return (
     <ProjectLayout
       current="speech"
-      bannerTitle="Embedded audio · offline speech recognition"
-      bannerSummary="Dual digital microphones, a Rust audio path, local ASR design, and an editable KiCad carrier."
     >
       <article className="project-detail" aria-labelledby="speech-to-text-audio">
         <h2 id="speech-to-text-audio">Speech-to-Text Audio Communications</h2>
@@ -309,8 +333,6 @@ function VibroacousticPage() {
   return (
     <ProjectLayout
       current="vibroacoustic"
-      bannerTitle="Structural response · piezoelectric sensing"
-      bannerSummary="A two-channel cantilever sensing study developed from mechanical geometry through circuit documentation and simulation."
     >
       <article className="project-detail" aria-labelledby="vibroacoustic-monitoring">
         <h2 id="vibroacoustic-monitoring">Vibroacoustic Condition Monitoring</h2>
@@ -338,8 +360,6 @@ function VhdlPage() {
   return (
     <ProjectLayout
       current="vhdl"
-      bannerTitle="Digital hardware · VHDL · VGA timing"
-      bannerSummary="A Game Boy-inspired architecture study connecting system decomposition, VGA timing, VHDL, and ModelSim."
     >
       <article className="project-detail" aria-labelledby="pokemon-vhdl">
         <h2 id="pokemon-vhdl">Game Boy–Inspired VHDL Architecture Study</h2>
@@ -407,12 +427,56 @@ function VhdlPage() {
   )
 }
 
+function SearchEnginePage() {
+  return (
+    <ProjectLayout
+      current="search"
+    >
+      <article className="project-detail" aria-labelledby="search-engine">
+        <h2 id="search-engine">Scalable Search Engine</h2>
+        <p className="project-meta">Personal data-structures project · Rust · disk I/O · binary search · memory mapping</p>
+
+        <h3>Project overview</h3>
+        <p>
+          I built this search engine after a large text dataset outgrew the memory available on my local system. The goal was to keep the data on disk, organize it into searchable structures, and retrieve matches without loading the full dataset into RAM.
+        </p>
+        <p>
+          Records are streamed in bounded sections, converted into sorted key/value pairs, and written as an ordered disk index. Queries use binary search to narrow the lookup range, while memory mapping lets the operating system load only the pages needed for the current search.
+        </p>
+
+        <ProjectFigure
+          src="/projects/search-engine/search-engine-flow.png"
+          alt="Data files moving through bounded input and output, a key-value sort, a mapped disk index, binary search, and results"
+          caption="Simplified data flow from disk-resident files to a bounded search result."
+          className="wide-figure"
+        />
+
+        <h3>Key design decisions</h3>
+        <ul>
+          <li><b>Bounded I/O:</b> process the dataset in manageable sections instead of treating memory as the storage layer.</li>
+          <li><b>Sorted key/value pairs:</b> keep related records ordered so lookups can skip most of the file.</li>
+          <li><b>Memory mapping:</b> rely on demand-paged disk access rather than allocating a copy of the complete index.</li>
+          <li><b>Binary search:</b> reduce lookup work by repeatedly narrowing the ordered search range.</li>
+        </ul>
+
+        <h3>Trade-offs</h3>
+        <p>
+          This design trades preprocessing time and additional disk organization for low memory use and predictable lookup behavior. It is most effective when the dataset is much larger than RAM and reads are more common than full index rebuilds.
+        </p>
+
+        <h3>What I learned</h3>
+        <p>
+          The project showed me that scalability is not only about adding hardware. Choosing data structures around the limits of the system—especially its memory and storage behavior—can make a large search problem practical on ordinary local resources.
+        </p>
+      </article>
+    </ProjectLayout>
+  )
+}
+
 function SwitchPage() {
   return (
     <ProjectLayout
       current="switch"
-      bannerTitle="Microsoldering · RP2040 boot-path modification"
-      bannerSummary="A successful fine-pitch installation that progressed from teardown and flex soldering to a Hekate boot."
     >
       <article className="project-detail" aria-labelledby="switch-modchip">
         <h2 id="switch-modchip">Nintendo Switch RP2040 Modchip Installation</h2>
@@ -512,6 +576,8 @@ export function PortfolioApp() {
       return <VibroacousticPage />
     case 'vhdl':
       return <VhdlPage />
+    case 'search':
+      return <SearchEnginePage />
     case 'switch':
       return <SwitchPage />
     default:

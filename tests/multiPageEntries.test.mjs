@@ -6,6 +6,7 @@ const pages = [
   ['speech-to-text.html', 'Speech-to-Text Audio Communications'],
   ['vibroacoustic-monitoring.html', 'Vibroacoustic Condition Monitoring'],
   ['pokemon-vhdl.html', 'Game Boy–Inspired VHDL Architecture Study'],
+  ['search-engine.html', 'Scalable Search Engine'],
   ['switch-modchip.html', 'Nintendo Switch RP2040 Modchip Installation'],
 ]
 
@@ -27,7 +28,7 @@ test('Vite builds every project entry', async () => {
 test('every page declares the shared favicon', async () => {
   for (const [file] of [['index.html'], ...pages]) {
     const html = await readFile(new URL(`../${file}`, import.meta.url), 'utf8')
-    assert.match(html, /<link rel="icon" type="image\/svg\+xml" href="\/assets\/favicon\.svg" \/>/)
+    assert.match(html, /<link rel="icon" type="image\/png" sizes="128x128" href="\/assets\/favicon\.png" \/>/)
   }
 })
 
@@ -36,8 +37,18 @@ test('the supplied project reference images are published as local assets', asyn
     '../public/projects/pokemon-vhdl/analogue-pocket-reference.png',
     '../public/projects/switch-modchip/hekate-success.png',
     '../public/projects/switch-modchip/switch-install-guide-preview.jpg',
+    '../public/projects/search-engine/search-engine-flow.png',
+    '../public/assets/favicon.png',
   ]) {
     const image = await readFile(new URL(file, import.meta.url))
     assert.ok(image.byteLength > 1000)
   }
+})
+
+test('the UP favicon is an RGBA PNG with transparency support', async () => {
+  const favicon = await readFile(new URL('../public/assets/favicon.png', import.meta.url))
+
+  assert.equal(favicon.readUInt32BE(16), 128)
+  assert.equal(favicon.readUInt32BE(20), 128)
+  assert.equal(favicon[25], 6)
 })
