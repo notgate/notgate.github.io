@@ -136,7 +136,7 @@ function SiteLayout({ current, children }: SiteLayoutProps) {
       <img
         id="frontphoto"
         className="site-banner"
-        src="/assets/banner.png"
+        src="/assets/banner-dcf21bf6.png"
         alt=""
         width="2172"
         height="370"

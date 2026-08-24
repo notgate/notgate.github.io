@@ -12,7 +12,8 @@ test('the shared shell uses the supplied image banner and simplified footer cred
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
   const css = await readFile(new URL('../src/styles/site.css', import.meta.url), 'utf8')
 
-  assert.match(source, /src="\/assets\/banner\.png"/)
+  assert.match(source, /src="\/assets\/banner-dcf21bf6\.png"/)
+  assert.doesNotMatch(source, /src="\/assets\/banner\.png"/)
   assert.match(source, /Template design by/)
   assert.doesNotMatch(source, /Project hierarchy informed by/)
   assert.doesNotMatch(source, /Embedded systems · signal processing · hardware design/)
