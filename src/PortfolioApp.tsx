@@ -131,17 +131,15 @@ function SiteNavigation({ current }: { current: PageKey }) {
 function SiteLayout({ current, children }: SiteLayoutProps) {
   return (
     <div id="wrap">
-      <header id="header">
-        <h1><a href="/">Paul — Engineering Portfolio</a></h1>
-      </header>
+      <h1 className="visually-hidden">Uthso Paul — Engineering Portfolio</h1>
 
       <img
         id="frontphoto"
         className="site-banner"
         src="/assets/banner.png"
         alt=""
-        width="2866"
-        height="548"
+        width="2172"
+        height="370"
       />
 
       <SiteNavigation current={current} />

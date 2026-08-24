@@ -82,6 +82,7 @@ The live browser CSSOM reduces that source to the empty rule below.
 .postinfo {background-color:#f4f4f4; border-left:4px solid #ccc; color:#606060; font-size:0.9em; line-height:1.4em; margin:1px 0 20px; padding:8px 5px 8px 8px;}
 .clearing {clear:left; margin:0; padding:0; visibility:hidden;}
 .hide {display:none;}
+.visually-hidden {border:0; clip-path:inset(50%); height:1px; margin:-1px; overflow:hidden; padding:0; position:absolute; white-space:nowrap; width:1px;}
 
 /* Uthso Paul placeholder adaptations. These do not replace source layout rules. */
 #leftside ul.avmenu::after {clear:both; content:''; display:block;}

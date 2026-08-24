@@ -35,3 +35,12 @@ test('the NYIT mark stays secondary to the education text', async () => {
   assert.match(css, /\.education-mark\s*\{[^}]*width\s*:\s*68px/s)
   assert.match(css, /@media \(max-width:680px\)[\s\S]*\.education-mark\s*\{width:56px;\}/)
 })
+
+test('the banner replaces the visible portfolio headline without losing an accessible title', async () => {
+  const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+  const css = await readFile(new URL('../src/styles/site.css', import.meta.url), 'utf8')
+
+  assert.doesNotMatch(source, /<header id="header">/)
+  assert.match(source, /<h1 className="visually-hidden">Uthso Paul — Engineering Portfolio<\/h1>/)
+  assert.match(css, /\.visually-hidden\s*\{[^}]*clip-path\s*:\s*inset\(50%\)/s)
+})
