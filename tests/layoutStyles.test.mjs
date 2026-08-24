@@ -48,7 +48,7 @@ test('the supplied profile photo floats into the Overview like the reference lay
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
   const css = await readFile(new URL('../src/styles/site.css', import.meta.url), 'utf8')
 
-  assert.match(source, /src="\/assets\/profile-0e8db13a\.jpg"/)
+  assert.match(source, /src="\/assets\/profile-d846a823\.jpg"/)
   assert.match(source, /alt="Portrait of Uthso Paul"/)
   assert.match(css, /\.profile-photo\s*\{[^}]*float\s*:\s*right[^}]*width\s*:\s*181px/s)
   assert.match(css, /@media \(max-width:680px\)[\s\S]*\.profile-photo\s*\{[^}]*float\s*:\s*none/s)

@@ -167,10 +167,10 @@ function HomePage() {
         </p>
         <img
           className="profile-photo"
-          src="/assets/profile-0e8db13a.jpg"
+          src="/assets/profile-d846a823.jpg"
           alt="Portrait of Uthso Paul"
-          width="600"
-          height="600"
+          width="700"
+          height="700"
         />
         <p>
           Projects are organized as professional, academic, and personal work. Select one for its design story, implementation details, images, lessons learned, references, and available source material.

@@ -45,7 +45,7 @@ test('the supplied project reference images are published as local assets', asyn
     '../public/projects/search-engine/search-engine-flow.png',
     '../public/assets/favicon.png',
     '../public/assets/banner-d9897f4c.jpg',
-    '../public/assets/profile-0e8db13a.jpg',
+    '../public/assets/profile-d846a823.jpg',
   ]) {
     const image = await readFile(new URL(file, import.meta.url))
     assert.ok(image.byteLength > 1000)
