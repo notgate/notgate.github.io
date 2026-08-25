@@ -31,11 +31,11 @@ export const PROJECT_ROUTES = [
   },
   {
     key: 'vhdl',
-    href: '/pokemon-vhdl.html',
+    href: '/game-boy-vga-pixel-pipeline.html',
     navLabel: 'VHDL VGA Pipeline',
     title: 'Game Boy–Style VGA Pixel Pipeline',
     category: 'academic',
-    meta: 'VHDL-2008 · VGA timing · GHDL verification',
+    meta: 'Ground-up 2026 rebuild · VHDL-2008 · GHDL verification',
     image: '/projects/gb-vga/vga-frame.png',
     alt: 'Simulation-generated four-shade VGA frame from the VHDL pixel pipeline',
     summary: 'A board-agnostic VHDL-2008 pixel pipeline that generates 640×480 VGA timing and renders a centered 160×144 tile-and-sprite scene with repeatable GHDL verification.',

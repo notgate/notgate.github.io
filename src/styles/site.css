@@ -104,7 +104,7 @@ The live browser CSSOM reduces that source to the empty rule below.
 html {scroll-behavior:smooth;}
 #wrap {max-width:800px; width:calc(100% - 24px);}
 #contentwide {padding-right:10px;}
-#overview,#education,#selected-projects,#speech-to-text-audio,#vibroacoustic-monitoring,#pokemon-vhdl,#search-engine,#switch-modchip {scroll-margin-top:12px;}
+#overview,#education,#selected-projects,#speech-to-text-audio,#vibroacoustic-monitoring,#game-boy-vga,#search-engine,#switch-modchip {scroll-margin-top:12px;}
 .site-banner {display:block; height:auto; width:100%;}
 .education-entry {align-items:center; display:flex; gap:16px; margin:0 0 4px;}
 .education-entry p {margin:0;}

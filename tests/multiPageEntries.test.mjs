@@ -5,7 +5,7 @@ import test from 'node:test'
 const pages = [
   ['speech-to-text.html', 'Speech-to-Text Audio Communications'],
   ['vibroacoustic-monitoring.html', 'Vibroacoustic Condition Monitoring'],
-  ['pokemon-vhdl.html', 'Game Boy–Style VGA Pixel Pipeline'],
+  ['game-boy-vga-pixel-pipeline.html', 'Game Boy–Style VGA Pixel Pipeline'],
   ['search-engine.html', 'Scalable Search Engine'],
   ['switch-modchip.html', 'Nintendo Switch RP2040 Modchip Installation'],
 ]
@@ -24,9 +24,19 @@ test('the homepage uses the same concise browser-tab title', async () => {
 })
 
 test('the VHDL entry metadata describes the rebuilt VGA hardware project', async () => {
-  const html = await readFile(new URL('../pokemon-vhdl.html', import.meta.url), 'utf8')
+  const html = await readFile(new URL('../game-boy-vga-pixel-pipeline.html', import.meta.url), 'utf8')
   assert.match(html, /Board-agnostic VHDL-2008 VGA pixel pipeline/)
+  assert.match(html, /<link rel="canonical" href="https:\/\/notgate\.github\.io\/game-boy-vga-pixel-pipeline\.html" \/>/)
   assert.doesNotMatch(html, /Pok[eé]mon VHDL architecture study/i)
+})
+
+test('the retired Pokémon filename is a neutral compatibility redirect', async () => {
+  const html = await readFile(new URL('../pokemon-vhdl.html', import.meta.url), 'utf8')
+  assert.match(html, /url=\/game-boy-vga-pixel-pipeline\.html/)
+  assert.match(html, /location\.replace\('\/game-boy-vga-pixel-pipeline\.html'/)
+  assert.match(html, /rel="canonical" href="https:\/\/notgate\.github\.io\/game-boy-vga-pixel-pipeline\.html"/)
+  assert.doesNotMatch(html, /src="\/src\/main\.tsx"/)
+  assert.doesNotMatch(html, /battle|player profile|random encounter|Analogue Pocket/i)
 })
 
 test('Vite builds every project entry', async () => {
@@ -34,6 +44,7 @@ test('Vite builds every project entry', async () => {
   for (const [file] of pages) {
     assert.match(config, new RegExp(file.replace('.', '\\.')))
   }
+  assert.match(config, /pokemon-vhdl\.html/)
 })
 
 test('every page declares the shared favicon', async () => {

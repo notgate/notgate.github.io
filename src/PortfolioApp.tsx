@@ -183,7 +183,7 @@ function HomePage() {
         <ol>
           <li><a href="/speech-to-text.html">Speech-to-Text Audio Communications</a></li>
           <li><a href="/search-engine.html">Scalable Search Engine</a></li>
-          <li><a href="/pokemon-vhdl.html">Game Boy–Style VGA Pixel Pipeline</a></li>
+          <li><a href="/game-boy-vga-pixel-pipeline.html">Game Boy–Style VGA Pixel Pipeline</a></li>
         </ol>
       </section>
 

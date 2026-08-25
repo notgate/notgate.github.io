@@ -10,7 +10,7 @@ test('project routes use dedicated HTML pages', () => {
     [
       ['speech', '/speech-to-text.html'],
       ['vibroacoustic', '/vibroacoustic-monitoring.html'],
-      ['vhdl', '/pokemon-vhdl.html'],
+      ['vhdl', '/game-boy-vga-pixel-pipeline.html'],
       ['search', '/search-engine.html'],
       ['switch', '/switch-modchip.html'],
     ],
@@ -22,7 +22,7 @@ test('page routing resolves the home page and every project page', () => {
   assert.equal(getPageKey('/index.html'), 'home')
   assert.equal(getPageKey('/speech-to-text.html'), 'speech')
   assert.equal(getPageKey('/vibroacoustic-monitoring.html'), 'vibroacoustic')
-  assert.equal(getPageKey('/pokemon-vhdl.html'), 'vhdl')
+  assert.equal(getPageKey('/game-boy-vga-pixel-pipeline.html'), 'vhdl')
   assert.equal(getPageKey('/search-engine.html'), 'search')
   assert.equal(getPageKey('/switch-modchip.html'), 'switch')
   assert.equal(getPageKey('/missing.html'), 'home')
@@ -71,6 +71,7 @@ test('the VHDL case study presents the rebuilt hardware pipeline and removes the
   assert.equal(route?.image, '/projects/gb-vga/vga-frame.png')
   assert.match(route?.summary ?? '', /VHDL-2008.*640×480 VGA/i)
   assert.match(page, /Academic course concept · ground-up 2026 rebuild · VHDL-2008 · GHDL/)
+  assert.match(page, /2024 Computer Organization &amp; Architecture team project with Richard Gill/)
   assert.match(page, /video-pipeline\.svg/)
   assert.match(page, /vga-frame\.png/)
   assert.match(page, /640×480/)
@@ -79,6 +80,16 @@ test('the VHDL case study presents the rebuilt hardware pipeline and removes the
   assert.match(page, /github\.com\/notgate\/gb_vhdl/)
   assert.match(page, /releases\/tag\/v1\.0\.0/)
   assert.doesNotMatch(page, /Vivado|Basys 3|Analogue Pocket|architecture-diagram\.jpg|vga-output-logic\.png|vga-simulation-waveform\.png|Pokemon-VHDL-Project-Report|player control|battle flow|profile data|random encounters/i)
+})
+
+test('the canonical VHDL URL replaces stale public links and anchors', async () => {
+  const app = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
+  const styles = await readFile(new URL('../src/styles/site.css', import.meta.url), 'utf8')
+
+  assert.match(app, /href="\/game-boy-vga-pixel-pipeline\.html">Game Boy–Style VGA Pixel Pipeline/)
+  assert.doesNotMatch(app, /href="\/pokemon-vhdl\.html"/)
+  assert.match(styles, /#game-boy-vga/)
+  assert.doesNotMatch(styles, /#pokemon-vhdl/)
 })
 
 test('active navigation exposes the current page semantically', async () => {
