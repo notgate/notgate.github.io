@@ -5,7 +5,7 @@ import test from 'node:test'
 const pages = [
   ['speech-to-text.html', 'Speech-to-Text Audio Communications'],
   ['vibroacoustic-monitoring.html', 'Vibroacoustic Condition Monitoring'],
-  ['pokemon-vhdl.html', 'Game Boy–Inspired VHDL Architecture Study'],
+  ['pokemon-vhdl.html', 'Game Boy–Style VGA Pixel Pipeline'],
   ['search-engine.html', 'Scalable Search Engine'],
   ['switch-modchip.html', 'Nintendo Switch RP2040 Modchip Installation'],
 ]
@@ -23,6 +23,12 @@ test('the homepage uses the same concise browser-tab title', async () => {
   assert.match(html, /<title>Uthso Paul, B\.E<\/title>/)
 })
 
+test('the VHDL entry metadata describes the rebuilt VGA hardware project', async () => {
+  const html = await readFile(new URL('../pokemon-vhdl.html', import.meta.url), 'utf8')
+  assert.match(html, /Board-agnostic VHDL-2008 VGA pixel pipeline/)
+  assert.doesNotMatch(html, /Pok[eé]mon VHDL architecture study/i)
+})
+
 test('Vite builds every project entry', async () => {
   const config = await readFile(new URL('../vite.config.ts', import.meta.url), 'utf8')
   for (const [file] of pages) {
@@ -37,9 +43,10 @@ test('every page declares the shared favicon', async () => {
   }
 })
 
-test('the supplied project reference images are published as local assets', async () => {
+test('project visuals are published as local assets and retired VHDL artifacts stay removed', async () => {
   for (const file of [
-    '../public/projects/pokemon-vhdl/analogue-pocket-reference.png',
+    '../public/projects/gb-vga/vga-frame.png',
+    '../public/projects/gb-vga/video-pipeline.svg',
     '../public/projects/switch-modchip/hekate-success.png',
     '../public/projects/switch-modchip/switch-install-guide-preview.jpg',
     '../public/projects/search-engine/search-engine-flow.png',
@@ -49,6 +56,16 @@ test('the supplied project reference images are published as local assets', asyn
   ]) {
     const image = await readFile(new URL(file, import.meta.url))
     assert.ok(image.byteLength > 1000)
+  }
+
+  for (const file of [
+    '../public/projects/pokemon-vhdl/Pokemon-VHDL-Project-Report.docx',
+    '../public/projects/pokemon-vhdl/analogue-pocket-reference.png',
+    '../public/projects/pokemon-vhdl/architecture-diagram.jpg',
+    '../public/projects/pokemon-vhdl/vga-output-logic.png',
+    '../public/projects/pokemon-vhdl/vga-simulation-waveform.png',
+  ]) {
+    await assert.rejects(readFile(new URL(file, import.meta.url)), { code: 'ENOENT' })
   }
 })
 

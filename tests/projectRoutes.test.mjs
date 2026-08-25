@@ -60,12 +60,25 @@ test('every homepage project entry has one concise summary and a preview image',
   }
 })
 
-test('the VHDL case study stays grounded while presenting the project positively', async () => {
+test('the VHDL case study presents the rebuilt hardware pipeline and removes the old concept artifacts', async () => {
   const source = await readFile(new URL('../src/PortfolioApp.tsx', import.meta.url), 'utf8')
-  assert.doesNotMatch(source, /Vivado|Basys 3/)
-  assert.match(source, /Academic team project with Richard Gill · VHDL · ModelSim · December 2024/)
-  assert.match(source, /Analogue Pocket/)
-  assert.match(source, /architecture-diagram\.jpg/)
+  const route = PROJECT_ROUTES.find(({ key }) => key === 'vhdl')
+  const start = source.indexOf('function VhdlPage()')
+  const end = source.indexOf('function SearchEnginePage()')
+  const page = source.slice(start, end)
+
+  assert.equal(route?.title, 'Game Boy–Style VGA Pixel Pipeline')
+  assert.equal(route?.image, '/projects/gb-vga/vga-frame.png')
+  assert.match(route?.summary ?? '', /VHDL-2008.*640×480 VGA/i)
+  assert.match(page, /Academic course concept · ground-up 2026 rebuild · VHDL-2008 · GHDL/)
+  assert.match(page, /video-pipeline\.svg/)
+  assert.match(page, /vga-frame\.png/)
+  assert.match(page, /640×480/)
+  assert.match(page, /160×144/)
+  assert.match(page, /GHDL synthesis elaboration/)
+  assert.match(page, /github\.com\/notgate\/gb_vhdl/)
+  assert.match(page, /releases\/tag\/v1\.0\.0/)
+  assert.doesNotMatch(page, /Vivado|Basys 3|Analogue Pocket|architecture-diagram\.jpg|vga-output-logic\.png|vga-simulation-waveform\.png|Pokemon-VHDL-Project-Report|player control|battle flow|profile data|random encounters/i)
 })
 
 test('active navigation exposes the current page semantically', async () => {
@@ -80,7 +93,7 @@ test('project copy leads with achievements instead of audit disclaimers', async 
 
   assert.doesNotMatch(publicCopy, /do not independently demonstrate|without claiming a verified final|Scope an FPGA project|no board or output display|not the final boot state|not successfully validated|available functional evidence|candid boundaries|what remains unfinished|validation boundaries/)
   assert.match(publicCopy, /successfully reached Hekate/)
-  assert.match(publicCopy, /FPGA-based handheld/)
+  assert.match(publicCopy, /simulation-generated VGA frame/i)
 })
 
 test('speech and Switch pages present the tutorials used as references', async () => {

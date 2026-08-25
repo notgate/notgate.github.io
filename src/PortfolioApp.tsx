@@ -183,7 +183,7 @@ function HomePage() {
         <ol>
           <li><a href="/speech-to-text.html">Speech-to-Text Audio Communications</a></li>
           <li><a href="/search-engine.html">Scalable Search Engine</a></li>
-          <li><a href="/pokemon-vhdl.html">Game Boy–Inspired VHDL Architecture Study</a></li>
+          <li><a href="/pokemon-vhdl.html">Game Boy–Style VGA Pixel Pipeline</a></li>
         </ol>
       </section>
 
@@ -368,66 +368,55 @@ function VhdlPage() {
     <ProjectLayout
       current="vhdl"
     >
-      <article className="project-detail" aria-labelledby="pokemon-vhdl">
-        <h2 id="pokemon-vhdl">Game Boy–Inspired VHDL Architecture Study</h2>
-        <p className="project-meta">Academic team project with Richard Gill · VHDL · ModelSim · December 2024</p>
-        <hr />
+      <article className="project-detail" aria-labelledby="game-boy-vga">
+        <h2 id="game-boy-vga">Game Boy–Style VGA Pixel Pipeline</h2>
+        <p className="project-meta">Academic course concept · ground-up 2026 rebuild · VHDL-2008 · GHDL</p>
 
-        <h3>Project vision</h3>
-        <p>
-          My original inspiration was the <a href="https://www.analogue.co/pocket" target="_blank" rel="noreferrer">Analogue Pocket</a>, a modern FPGA-based handheld designed around Game Boy-family cartridges and a high-resolution display. I wanted to explore that same hardware-first mindset through an original Pokémon-inspired VHDL architecture: game behavior expressed as interconnected digital modules instead of a conventional software loop.
-        </p>
-
-        <figure className="reference-figure portrait-figure">
-          <a href="https://www.analogue.co/pocket" target="_blank" rel="noreferrer">
-            <img
-              src="/projects/pokemon-vhdl/analogue-pocket-reference.png"
-              alt="Black Analogue Pocket handheld shown from the front"
-              loading="lazy"
-            />
-          </a>
-          <figcaption>
-            The Analogue Pocket provided the design inspiration: a Game Boy-compatible handheld engineered around FPGA hardware. Product reference image; <a href="https://www.analogue.co/pocket" target="_blank" rel="noreferrer">official Pocket specifications and imagery by Analogue.</a>
-          </figcaption>
-        </figure>
-
-        <h3>System architecture</h3>
-        <p>
-          Richard Gill and I decomposed the game concept into cooperating subsystems for player control, battle flow, team and profile data, Pokémon moves and statistics, world-map behavior, random encounters, memory control, and display generation. That planning work turned a familiar game concept into a concrete exercise in interfaces, state ownership, clocks, and data movement.
+        <p className="outcome-callout">
+          <b>Completed outcome:</b> The integrated VHDL design generates a complete 640×480 VGA frame, centers a 160×144 four-shade logical screen at 3× scale, and resolves tile and sprite pixels through a hardware priority path.
         </p>
         <ProjectFigure
-          src="/projects/pokemon-vhdl/architecture-diagram.jpg"
-          alt="Original Pokémon VHDL architecture diagram linking controllers, game data, map logic, memory, and display output"
-          caption="Original high-level subsystem plan from the course project documentation."
+          src="/projects/gb-vga/vga-frame.png"
+          alt="Simulation-generated VGA frame with black margins, a four-shade tiled viewport, and a central sprite"
+          caption="Simulation-generated VGA frame sampled from the top-level 12-bit RGB outputs over one complete 800×525 timing frame."
           className="wide-figure"
         />
 
-        <h3>VHDL implementation and simulation</h3>
+        <h3>Hardware objective</h3>
         <p>
-          I focused most deeply on the display controller: horizontal and vertical counters, active-video gating, HSYNC/VSYNC timing, pixel coordinates, and RGB selection between map and sprite inputs. ModelSim gave me a signal-level view of how those concurrent processes advanced together and made the display pipeline the strongest implementation result from the project.
+          I rebuilt the project around a single digital-video responsibility: transform the current raster coordinate into synchronization signals and RGB output. There is no software event loop or frame-buffer requirement inside the RTL; each output pixel is a deterministic function of the timing counters, logical coordinate mapper, and two independent pixel sources.
         </p>
-        <div className="image-pair">
-          <ProjectFigure
-            src="/projects/pokemon-vhdl/vga-output-logic.png"
-            alt="VHDL source excerpt implementing VGA synchronization and RGB selection"
-            caption="VGA synchronization, active-video, coordinate, and RGB-selection logic."
-          />
-          <ProjectFigure
-            src="/projects/pokemon-vhdl/vga-simulation-waveform.png"
-            alt="ModelSim waveform for the display-controller simulation"
-            caption="Display-controller simulation waveform used to inspect counters and output timing."
-          />
-        </div>
 
-        <h3>Engineering lessons</h3>
+        <h3>Video pipeline</h3>
+        <ProjectFigure
+          src="/projects/gb-vga/video-pipeline.svg"
+          alt="Hardware flow from pixel clock and VGA timing through coordinate mapping, tile and sprite generators, priority selection, and a two-bit RGB palette"
+          caption="Project-owned hardware graph for the rebuilt pixel pipeline. HSYNC and VSYNC come directly from the timing unit while coordinates drive the parallel tile and sprite paths."
+          className="wide-figure"
+        />
         <ul>
-          <li>Translate game behavior into clocked datapaths, registers, memories, and finite-state machines rather than software-style object interactions.</li>
-          <li>Build confidence subsystem by subsystem with focused testbenches before integrating control, memory, and video paths.</li>
-          <li>Use clear module interfaces and timing diagrams early so an ambitious architecture can be divided across a team and integrated predictably.</li>
+          <li><b>VGA timing:</b> 800×525 counters produce a 640×480 active area with active-low HSYNC and VSYNC.</li>
+          <li><b>Logical screen:</b> a centered 160×144 viewport uses 3× nearest-neighbor pixel replication.</li>
+          <li><b>Pixel sources:</b> procedural 8×8 background tiles and one original 16×16 sprite are evaluated independently.</li>
+          <li><b>Priority and color:</b> opaque sprite pixels override the tile shade before a four-entry 2-bit palette produces 12-bit RGB.</li>
+          <li><b>Blanking:</b> pixels outside the logical viewport and during inactive video output black.</li>
         </ul>
+
+        <h3>Verification</h3>
+        <ul>
+          <li>One complete 800×525 frame is checked cycle by cycle against reference horizontal and vertical counters.</li>
+          <li>Testbenches assert sync windows, 307,200 active VGA samples, viewport bounds, transparent sprite behavior, priority, and 3× replication.</li>
+          <li>GHDL synthesis elaboration verifies that the integrated RTL hierarchy produces a nonempty generated netlist.</li>
+          <li>The simulator writes all 640×480 RGB samples to a PPM frame; a standard-library Python tool converts it to the PNG shown above and CI byte-compares the result.</li>
+        </ul>
+
+        <h3>Course context and scope</h3>
+        <p>
+          This is a ground-up 2026 rebuild by Uthso Paul of the display-controller idea from a 2024 Computer Organization &amp; Architecture team project with Richard Gill. The rebuild narrows the earlier broad concept to a portable video pipeline with source-derived evidence. Board-specific clock generation and pin constraints stay outside the board-agnostic top-level interface.
+        </p>
         <p className="project-links">
-          <a href="https://github.com/notgate/pokemon-vhdl-architecture-study" target="_blank" rel="noreferrer">View the archived project repository on GitHub</a><br />
-          <a href="/projects/pokemon-vhdl/Pokemon-VHDL-Project-Report.docx" download>Download the original course report (.docx)</a>
+          <a href="https://github.com/notgate/gb_vhdl" target="_blank" rel="noreferrer">Source, VHDL modules, tests, and documentation: github.com/notgate/gb_vhdl</a><br />
+          <a href="https://github.com/notgate/gb_vhdl/releases/tag/v1.0.0" target="_blank" rel="noreferrer">Release: v1.0.0 with generated frame and architecture graph</a>
         </p>
       </article>
     </ProjectLayout>
