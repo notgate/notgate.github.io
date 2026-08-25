@@ -78,7 +78,8 @@ test('the VHDL case study presents the rebuilt hardware pipeline and removes the
   assert.match(page, /160×144/)
   assert.match(page, /GHDL synthesis elaboration/)
   assert.match(page, /github\.com\/notgate\/gb_vhdl/)
-  assert.match(page, /releases\/tag\/v1\.0\.0/)
+  assert.match(page, /releases\/tag\/v1\.0\.1/)
+  assert.doesNotMatch(page, /releases\/tag\/v1\.0\.0/)
   assert.doesNotMatch(page, /Vivado|Basys 3|Analogue Pocket|architecture-diagram\.jpg|vga-output-logic\.png|vga-simulation-waveform\.png|Pokemon-VHDL-Project-Report|player control|battle flow|profile data|random encounters/i)
 })
 

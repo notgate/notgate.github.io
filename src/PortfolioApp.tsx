@@ -416,7 +416,7 @@ function VhdlPage() {
         </p>
         <p className="project-links">
           <a href="https://github.com/notgate/gb_vhdl" target="_blank" rel="noreferrer">Source, VHDL modules, tests, and documentation: github.com/notgate/gb_vhdl</a><br />
-          <a href="https://github.com/notgate/gb_vhdl/releases/tag/v1.0.0" target="_blank" rel="noreferrer">Release: v1.0.0 with generated frame and architecture graph</a>
+          <a href="https://github.com/notgate/gb_vhdl/releases/tag/v1.0.1" target="_blank" rel="noreferrer">Release: v1.0.1 with generated frame and hardware-flow graph</a>
         </p>
       </article>
     </ProjectLayout>
